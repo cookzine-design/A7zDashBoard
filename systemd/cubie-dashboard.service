@@ -1,0 +1,16 @@
+[Unit]
+Description=Cubie Server Web Dashboard
+After=network.target
+
+[Service]
+Type=simple
+User=cubie
+Group=cubie
+WorkingDirectory=/opt/cubie-dashboard
+ExecStart=/opt/cubie-dashboard/.venv/bin/python /opt/cubie-dashboard/app.py
+Restart=always
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

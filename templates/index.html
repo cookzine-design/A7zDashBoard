@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cubie Server</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div>
+    <div class="eyebrow">CUBIE A7Z</div>
+    <h1>SERVER DASHBOARD</h1>
+  </div>
+  <div id="clock">--</div>
+</header>
+
+<main>
+<section class="grid stats">
+  <article class="card">
+    <div class="label">CPU</div>
+    <div class="value" id="cpu">--</div>
+    <div class="bar"><span id="cpuBar"></span></div>
+    <div class="sub" id="load">Load --</div>
+  </article>
+  <article class="card">
+    <div class="label">RAM</div>
+    <div class="value" id="ram">--</div>
+    <div class="bar"><span id="ramBar"></span></div>
+    <div class="sub" id="ramDetail">--</div>
+  </article>
+  <article class="card">
+    <div class="label">CPU TEMPERATURE</div>
+    <div class="value" id="temp">--</div>
+    <div class="sub" id="thermal">--</div>
+  </article>
+  <article class="card">
+    <div class="label">STORAGE</div>
+    <div class="value" id="disk">--</div>
+    <div class="bar"><span id="diskBar"></span></div>
+    <div class="sub" id="diskDetail">--</div>
+  </article>
+</section>
+
+<section class="card upload">
+  <div class="section-title">
+    <div>
+      <div class="label">FILE UPLOAD</div>
+      <h2>ADD TO QUEUE</h2>
+    </div>
+    <span class="sub">Files are placed in incoming/</span>
+  </div>
+  <form id="uploadForm">
+    <label class="dropzone" id="dropzone">
+      <input id="fileInput" type="file" name="files" multiple
+             accept=".arw,.jpg,.jpeg,.png,.tif,.tiff,.mp4,.mov,.mkv">
+      <span class="upload-icon">＋</span>
+      <strong>Choose files</strong>
+      <small>or drag & drop here</small>
+    </label>
+    <div id="selectedFiles" class="selected"></div>
+    <div class="upload-row">
+      <button type="submit">UPLOAD &amp; START QUEUE</button>
+      <span id="uploadStatus" class="sub"></span>
+    </div>
+  </form>
+</section>
+
+<section class="card converter">
+  <div class="section-title">
+    <div>
+      <div class="label">FILE CONVERTER</div>
+      <h2>WATCH DIRECTORY</h2>
+    </div>
+    <span class="status"><i></i> ACTIVE</span>
+  </div>
+  <div class="paths">
+    <div><span>INPUT</span><b>/srv/cubie/incoming</b></div>
+    <div class="arrow">→</div>
+    <div><span>OUTPUT</span><b>/srv/cubie/output</b></div>
+  </div>
+  <div class="counts">
+    <div><strong id="queue">0</strong><span>QUEUE</span></div>
+    <div><strong id="output">0</strong><span>OUTPUT</span></div>
+    <div><strong id="error">0</strong><span>FAILED</span></div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <div class="label">ACTIVITY</div>
+    <button onclick="refresh()">REFRESH</button>
+  </div>
+  <div id="activity" class="activity"><div class="empty">Loading...</div></div>
+</section>
+
+<section class="card server">
+  <div class="label">SERVER CONTROL</div>
+  <div class="buttons">
+    <button onclick="restartWorker()">RESTART WORKER</button>
+    <button class="danger" onclick="rebootServer()">REBOOT SERVER</button>
+  </div>
+</section>
+</main>
+
+<footer>Polling every 3 seconds · Debian 13</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
